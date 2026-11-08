@@ -11,6 +11,8 @@ import androidx.core.view.WindowInsetsCompat
 
 class DetailViewActivity : ComponentActivity() {
     private lateinit var searchQueryText: EditText
+    private lateinit var yearLabel: EditText
+    private lateinit var image_url: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +21,11 @@ class DetailViewActivity : ComponentActivity() {
 
 
         val searchQueryText = findViewById<TextView>(R.id.searchQueryText)
-        searchQueryText.text = intent.getStringExtra("searchQuery").orEmpty()
+        val yearLabel = findViewById<TextView>(R.id.yearLabel)
+        
+        searchQueryText.text = intent.getStringExtra("title").orEmpty()
+        yearLabel.text = intent.getStringExtra("year").orEmpty()
+        image_url = intent.getStringExtra("image_url").orEmpty()
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

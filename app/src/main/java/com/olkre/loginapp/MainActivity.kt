@@ -51,19 +51,31 @@ class MainActivity : ComponentActivity() {
                 null,
                 { response ->
                     // Read the fields the server actually returns
-                    AlertDialog.Builder(this)
-                        .setTitle(url)
-                        .setMessage(response.toString())
-                        .setPositiveButton("OK", null)
-                        .show()
+//                    AlertDialog.Builder(this)
+//                        .setTitle(url)
+//                        .setMessage(response.toString())
+//                        .setPositiveButton("OK", null)
+//                        .show()
 
-                     
+                    if (response.has("Error")) {
+                        Toast.makeText(this, "Encountered an error: ${response.getString("Error")}", Toast.LENGTH_SHORT).show()
+                    } else {
+                        // get the first item from results
+                        val results = response.getJSONArray("Search")
+                        val firstResult = results.getJSONObject(0)
+                        Toast.makeText(this, "Found ${results.length()-1} results", Toast.LENGTH_SHORT).show()
+
+                        val title = firstResult.getString("Title")
+                        val year = firstResult.getString("Year")
+                        val image_url = firstResult.optString("Poster")
 
 
-                    val intent = Intent(this, DetailViewActivity::class.java)
-                    intent.putExtra("searchQuery", searchInput.text.toString())
-                    intent.putExtra("searchResult", response.toString())
-                    startActivity(intent)
+                        val intent = Intent(this, DetailViewActivity::class.java)
+                        intent.putExtra("title", title)
+                        intent.putExtra("year", year)
+                        intent.putExtra("image_url", image_url)
+                        startActivity(intent)
+                    }
                 },
                 { error ->
                     Log.e("DetailViewActivity", "Search request failed", error)
