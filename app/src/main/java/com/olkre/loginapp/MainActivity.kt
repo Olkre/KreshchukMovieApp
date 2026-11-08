@@ -29,62 +29,56 @@ class MainActivity : ComponentActivity() {
         this.searchInput.setText("Amazing Spiderman")
 
         // internet connection
+
         val queue = Volley.newRequestQueue(this)
 
         // handle login action
         this.searchButton.setOnClickListener {
             Log.i("MainActivity", "Login button clicked")
 
-            val intent = Intent(this, DetailViewActivity::class.java)
-            intent.putExtra("searchQuery", searchInput.text.toString())
-            startActivity(intent)
-            finish()
 
-//
-//            val url = "https://jwuclasses.com/csis2023/old/login/"
-//            val body = JSONObject().apply {
-//                put("title", searchInput.text.toString())
-//            }
-//
-//            // check if the body properties arent empty
-//            if(body.getString("email") == "") {
-//                AlertDialog.Builder(this)
-//                    .setTitle("The search can't be empty")
-//                    .setPositiveButton("OK", null)
-//                    .show()
-//            } else {
-//                val request = JsonObjectRequest(
-//                    Request.Method.POST, url, body,
-//                    { response ->
-//                        // check if the result part of the response is true
-//                        val result = response.getString("success")
-//                        // show toast is success and alert if failed or wrong creds
-//                        if(result == "true") {
-//                            Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
-//
-//                        }
-//                        else {
-//                            AlertDialog.Builder(this)
-//                                .setTitle("Wrong credentials for " + response.getString("email"))
-//                                .setPositiveButton("OK", null)
-//                                .show()
-//                        }
-//
-//                    },
-//                    // catch when the server is unreachable or broken
-//                    {
-//                        error ->
-//                        AlertDialog.Builder(this)
-//                            .setTitle("The server did not return valid response")
-//                            .setMessage(error.message)
-//                            .setPositiveButton("OK", null)
-//                            .show()
-//                    },
-//                )
-//                request.setShouldCache(false)
-//
-//                queue.add(request)
-//            }
+            val apiKey = BuildConfig.OMDB_API_KEY
+            val queue = Volley.newRequestQueue(this)
+
+
+            val url = "https://www.omdbapi.com/?apikey=$apiKey&s=${searchInput.text.toString()}"
+
+
+
+            val request = JsonObjectRequest(
+                Request.Method.POST,
+                url,
+                null,
+                { response ->
+                    // Read the fields the server actually returns
+                    AlertDialog.Builder(this)
+                        .setTitle(url)
+                        .setMessage(response.toString())
+                        .setPositiveButton("OK", null)
+                        .show()
+
+                     
+
+
+                    val intent = Intent(this, DetailViewActivity::class.java)
+                    intent.putExtra("searchQuery", searchInput.text.toString())
+                    intent.putExtra("searchResult", response.toString())
+                    startActivity(intent)
+                },
+                { error ->
+                    Log.e("DetailViewActivity", "Search request failed", error)
+                    AlertDialog.Builder(this)
+                        .setTitle("The server did not return valid response")
+                        .setMessage(error.message)
+                        .setPositiveButton("OK", null)
+                        .show()
+                }
+            )
+
+            request.setShouldCache(false)
+
+            queue.add(request)
+
         }
 
     }

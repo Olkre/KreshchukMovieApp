@@ -1,6 +1,17 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+}
+
+val localProps = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+
+if (localPropertiesFile.exists() && localPropertiesFile.isFile) {
+    localPropertiesFile.inputStream().use {
+        localProps.load(it)
+    }
 }
 
 android {
@@ -15,6 +26,9 @@ android {
         targetSdk = 37
         versionCode = 1
         versionName = "1.0"
+
+        val apiKey = localProps.getProperty("OMDB_API_KEY", "")
+        buildConfigField("String", "OMDB_API_KEY", "\"$apiKey\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -33,6 +47,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
