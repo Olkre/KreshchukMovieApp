@@ -67,13 +67,13 @@ class MainActivity : ComponentActivity() {
 
                         val title = firstResult.getString("Title")
                         val year = firstResult.getString("Year")
-                        val image_url = firstResult.optString("Poster")
+                        val imageUrl = firstResult.optString("Poster")
 
 
                         val intent = Intent(this, DetailViewActivity::class.java)
                         intent.putExtra("title", title)
                         intent.putExtra("year", year)
-                        intent.putExtra("image_url", image_url)
+                        intent.putExtra("imageUrl", imageUrl)
                         startActivity(intent)
                     }
                 },
