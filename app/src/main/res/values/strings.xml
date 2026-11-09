@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">KreshchukMovieApp</string>
+    <!-- Main Screen -->
+    <string name="page_title">Movie Search App</string>
+    <string name="search_label">Search for a movie</string>
+    <string name="search_button">Search</string>
+    <string name="empty_search_message">Please include a search term</string>
+    <string name="network_error_title">The server did not return a valid response</string>
+
+    <!-- Detail View Screen -->
+    <string name="back_button">Go back</string>
+    <string name="result_label">Top search result</string>
+    <string name="loading_label">Loading..</string>
 </resources>

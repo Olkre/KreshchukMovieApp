@@ -26,14 +26,11 @@ class MainActivity : ComponentActivity() {
         this.searchInput = findViewById(R.id.searchInput)
         this.searchButton = findViewById(R.id.searchButton)
 
-        this.searchInput.setText("Amazing Spiderman")
-
-
         // handle login action
         this.searchButton.setOnClickListener {
             //Log.i("MainActivity", "Login button clicked")
             if(searchInput.text.toString().trim().isEmpty()) {
-                Toast.makeText(this, "Please include a search term", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.empty_search_message, Toast.LENGTH_SHORT).show()
             }
 
             val apiKey = BuildConfig.OMDB_API_KEY
@@ -51,12 +48,11 @@ class MainActivity : ComponentActivity() {
                 { response ->
 
                     if (response.has("Error")) {
-                        Toast.makeText(this, "Encountered an error: ${response.getString("Error")}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, response.getString("Error"), Toast.LENGTH_SHORT).show()
                     } else {
                         // get the first item from results
                         val results = response.getJSONArray("Search")
                         val firstResult = results.getJSONObject(0)
-                        Toast.makeText(this, "Found ${results.length()-1} results", Toast.LENGTH_SHORT).show()
 
                         val title = firstResult.getString("Title")
                         val year = firstResult.getString("Year")
@@ -76,9 +72,9 @@ class MainActivity : ComponentActivity() {
                 { error ->
                     Log.e("DetailViewActivity", "Search request failed", error)
                     AlertDialog.Builder(this)
-                        .setTitle("The server did not return valid response")
+                        .setTitle(R.string.network_error_title)
                         .setMessage(error.message)
-                        .setPositiveButton("OK", null)
+                        .setPositiveButton(android.R.string.ok, null)
                         .show()
                 }
             )

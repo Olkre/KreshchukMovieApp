@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
-        android:text="Top search result:"
+        android:text="@string/result_label"
         app:layout_constraintStart_toStartOf="@+id/backButton"
         app:layout_constraintTop_toBottomOf="@+id/backButton" />
 
@@ -21,7 +21,7 @@
         android:layout_width="317dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:text="loading.."
+        android:text="@string/loading_label"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/searchQueryLabel"
         app:layout_constraintTop_toBottomOf="@+id/searchQueryLabel" />
@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="loading.."
+        android:text="@string/loading_label"
         app:layout_constraintStart_toStartOf="@+id/titleText"
         app:layout_constraintTop_toBottomOf="@+id/titleText" />
 
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
         android:layout_marginTop="48dp"
-        android:text="Go back"
+        android:text="@string/back_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,6 +50,7 @@
         android:layout_width="302dp"
         android:layout_height="331dp"
         android:layout_marginTop="32dp"
+        android:contentDescription="Movie Poster Image"
         android:src="@drawable/ic_launcher_background"
         app:layout_constraintStart_toStartOf="@+id/yearLabel"
         app:layout_constraintTop_toBottomOf="@+id/yearLabel" />
