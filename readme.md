@@ -4,6 +4,8 @@ Open the solution in the Android Studio, verify Gradle settings, and run the app
 
 The placeholder image and app icon were designed in Figma with no AI use.
 
+Everything works as expected. 
+
 Screenshots
 
 Phone portrait: Search
