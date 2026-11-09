@@ -35,7 +35,7 @@ class DetailViewActivity : ComponentActivity() {
         imageUrl = intent.getStringExtra("imageUrl").orEmpty()
 
         if (imageUrl.isNullOrBlank() || imageUrl == "N/A") {
-            posterView.setImageDrawable(null) // Leave it blank until you add a placeholder
+            posterView.setImageResource(R.drawable.poster_placeholder)
         } else {
             Picasso.get()
                 .load(imageUrl)

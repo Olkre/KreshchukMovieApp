@@ -18,8 +18,8 @@
 
     <TextView
         android:id="@+id/titleText"
-        android:layout_width="316dp"
-        android:layout_height="45dp"
+        android:layout_width="317dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="loading.."
         android:textSize="24sp"
@@ -30,7 +30,7 @@
         android:id="@+id/yearLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="16dp"
         android:text="loading.."
         app:layout_constraintStart_toStartOf="@+id/titleText"
         app:layout_constraintTop_toBottomOf="@+id/titleText" />

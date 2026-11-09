@@ -10,7 +10,6 @@ import androidx.activity.ComponentActivity
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import org.json.JSONObject
 import android.content.Intent
 import android.net.Uri
 
@@ -29,14 +28,13 @@ class MainActivity : ComponentActivity() {
 
         this.searchInput.setText("Amazing Spiderman")
 
-        // internet connection
-
-        val queue = Volley.newRequestQueue(this)
 
         // handle login action
         this.searchButton.setOnClickListener {
-            Log.i("MainActivity", "Login button clicked")
-
+            //Log.i("MainActivity", "Login button clicked")
+            if(searchInput.text.toString().trim().isEmpty()) {
+                Toast.makeText(this, "Please include a search term", Toast.LENGTH_SHORT).show()
+            }
 
             val apiKey = BuildConfig.OMDB_API_KEY
             val queue = Volley.newRequestQueue(this)
@@ -46,18 +44,11 @@ class MainActivity : ComponentActivity() {
             val url = "https://www.omdbapi.com/?apikey=$apiKey&s=$query"
 
 
-
             val request = JsonObjectRequest(
                 Request.Method.GET,
                 url,
                 null,
                 { response ->
-                    // Read the fields the server actually returns
-//                    AlertDialog.Builder(this)
-//                        .setTitle(url)
-//                        .setMessage(response.toString())
-//                        .setPositiveButton("OK", null)
-//                        .show()
 
                     if (response.has("Error")) {
                         Toast.makeText(this, "Encountered an error: ${response.getString("Error")}", Toast.LENGTH_SHORT).show()
@@ -69,7 +60,10 @@ class MainActivity : ComponentActivity() {
 
                         val title = firstResult.getString("Title")
                         val year = firstResult.getString("Year")
-                        val imageUrl = firstResult.optString("Poster")
+                        var imageUrl = firstResult.optString("Poster")
+
+                        // uncomment to trigger the placeholder image
+                        //imageUrl = "N/A"
 
 
                         val intent = Intent(this, DetailViewActivity::class.java)
