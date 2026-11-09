@@ -12,6 +12,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 import android.content.Intent
+import android.net.Uri
 
 class MainActivity : ComponentActivity() {
     private lateinit var searchInput: EditText
@@ -41,12 +42,13 @@ class MainActivity : ComponentActivity() {
             val queue = Volley.newRequestQueue(this)
 
 
-            val url = "https://www.omdbapi.com/?apikey=$apiKey&s=${searchInput.text.toString()}"
+            val query = Uri.encode(searchInput.text.toString().trim())
+            val url = "https://www.omdbapi.com/?apikey=$apiKey&s=$query"
 
 
 
             val request = JsonObjectRequest(
-                Request.Method.POST,
+                Request.Method.GET,
                 url,
                 null,
                 { response ->

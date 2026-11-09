@@ -18,8 +18,8 @@
 
     <TextView
         android:id="@+id/titleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="316dp"
+        android:layout_height="45dp"
         android:layout_marginTop="28dp"
         android:text="loading.."
         android:textSize="24sp"
@@ -47,8 +47,8 @@
 
     <ImageView
         android:id="@+id/posterView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="302dp"
+        android:layout_height="331dp"
         android:layout_marginTop="32dp"
         android:src="@drawable/ic_launcher_background"
         app:layout_constraintStart_toStartOf="@+id/yearLabel"
