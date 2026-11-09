@@ -1,0 +1,1 @@
+To run the application, please set an OMDB_API_KEY in local.properties.

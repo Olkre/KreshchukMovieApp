@@ -11,4 +11,5 @@
     <string name="back_button">Go back</string>
     <string name="result_label">Top search result</string>
     <string name="loading_label">Loading..</string>
+    <string name="poster_content_description">Movie poster</string>
 </resources>

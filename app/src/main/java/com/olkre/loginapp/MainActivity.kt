@@ -31,58 +31,51 @@ class MainActivity : ComponentActivity() {
             //Log.i("MainActivity", "Login button clicked")
             if(searchInput.text.toString().trim().isEmpty()) {
                 Toast.makeText(this, R.string.empty_search_message, Toast.LENGTH_SHORT).show()
-            }
+            } else {
+                val apiKey = BuildConfig.OMDB_API_KEY
+                val queue = Volley.newRequestQueue(this)
 
-            val apiKey = BuildConfig.OMDB_API_KEY
-            val queue = Volley.newRequestQueue(this)
-
-
-            val query = Uri.encode(searchInput.text.toString().trim())
-            val url = "https://www.omdbapi.com/?apikey=$apiKey&s=$query"
+                val query = Uri.encode(searchInput.text.toString().trim())
+                val url = "https://www.omdbapi.com/?apikey=$apiKey&s=$query"
 
 
-            val request = JsonObjectRequest(
-                Request.Method.GET,
-                url,
-                null,
-                { response ->
+                val request = JsonObjectRequest(
+                    Request.Method.GET,
+                    url,
+                    null,
+                    { response ->
 
-                    if (response.has("Error")) {
-                        Toast.makeText(this, response.getString("Error"), Toast.LENGTH_SHORT).show()
-                    } else {
-                        // get the first item from results
-                        val results = response.getJSONArray("Search")
-                        val firstResult = results.getJSONObject(0)
+                        if (response.has("Error")) {
+                            Toast.makeText(this, response.getString("Error"), Toast.LENGTH_SHORT).show()
+                        } else {
+                            // get the first item from results
+                            val results = response.getJSONArray("Search")
+                            val firstResult = results.getJSONObject(0)
 
-                        val title = firstResult.getString("Title")
-                        val year = firstResult.getString("Year")
-                        var imageUrl = firstResult.optString("Poster")
+                            val title = firstResult.getString("Title")
+                            val year = firstResult.getString("Year")
+                            var imageUrl = firstResult.optString("Poster")
 
-                        // uncomment to trigger the placeholder image
-                        //imageUrl = "N/A"
+                            // uncomment to trigger the placeholder image
+                            //imageUrl = "N/A"
 
-
-                        val intent = Intent(this, DetailViewActivity::class.java)
-                        intent.putExtra("title", title)
-                        intent.putExtra("year", year)
-                        intent.putExtra("imageUrl", imageUrl)
-                        startActivity(intent)
+                            val intent = Intent(this, DetailViewActivity::class.java)
+                            intent.putExtra("title", title)
+                            intent.putExtra("year", year)
+                            intent.putExtra("imageUrl", imageUrl)
+                            startActivity(intent)
+                        }
+                    },
+                    { error ->
+                        Log.e("DetailViewActivity", "Search request failed", error)
+                        Toast.makeText(this, R.string.network_error_title, Toast.LENGTH_SHORT).show()
                     }
-                },
-                { error ->
-                    Log.e("DetailViewActivity", "Search request failed", error)
-                    AlertDialog.Builder(this)
-                        .setTitle(R.string.network_error_title)
-                        .setMessage(error.message)
-                        .setPositiveButton(android.R.string.ok, null)
-                        .show()
-                }
-            )
+                )
 
-            request.setShouldCache(false)
+                request.setShouldCache(false)
 
-            queue.add(request)
-
+                queue.add(request)
+            }
         }
 
     }
