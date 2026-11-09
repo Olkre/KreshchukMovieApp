@@ -39,6 +39,8 @@ class DetailViewActivity : ComponentActivity() {
         } else {
             Picasso.get()
                 .load(imageUrl)
+                .placeholder(R.drawable.poster_placeholder)
+                .error(R.drawable.poster_placeholder)
                 .fit()
                 .centerInside()
                 .into(posterView)
